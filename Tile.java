@@ -11,7 +11,7 @@ public class Tile {
     //constructor
     public Tile( String value ) {
 				_face = value;
-				_isFaceUp = true;
+				_isFaceUp = false;
     }
  
     public boolean isFaceUp() { return _isFaceUp; }
