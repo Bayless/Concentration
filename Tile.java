@@ -11,7 +11,7 @@ public class Tile {
     //constructor
     public Tile( String value ) {
 				_face = value;
-				_isFaceUp = false;
+				_isFaceUp = true;
     }
  
     public boolean isFaceUp() { return _isFaceUp; }
@@ -22,7 +22,7 @@ public class Tile {
 		//override toString method
     public String toString() {
 				if ( isFaceUp() )
-						return _face;
+						return " " + _face + " ";
 				else
 						return "-X-";
     }

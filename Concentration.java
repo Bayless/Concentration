@@ -23,46 +23,50 @@ public class Concentration {
 	_board = new Tile[4][4];
 	_words = new String[] {"a","b","c","d","e","f","g","h"};
 
-	for (int i = 0; i < _board.length; i++){
-	    for (int j = 0; j < _board[i].length; j++){
-		_board[i][j] = _words[(i+j) % 8][(i+j)%8];
-	    }
-	    shuffle();
-	}
+	for (int i = 0; i < _board.length; i++)
+	    for (int j = 0; j < _board[i].length; j++)
+			_board[i][j] = new Tile(_words[(i+j) % 8]);
+	shuffle();
     }
 
     
-    public static String print( Tile[][] a ) {
+    public static String print() {
 	String ret = "";
-	for (int i = 0;i<a.length;i++){
-	    ret+="row " + i+1 + ": \t";
-	    for (int x = 0; x < a[i].length;x++){
-		ret+=a[i][x] + " ";
-		if (x==a[i].length-1){
-		    ret+="\n";
-		}
+	for (int i = 0; i< _board.length; i++){
+	    ret += "row " + i+1 + ": \t";
+	    for (int x = 0; x < _board[i].length;x++){
+		ret += _board[i][x] + " ";
+		if (x == _board[i].length-1)
+		    ret += "\n";
 	    }
 	}
 	return ret;
     }
+	
     public Tile[][] getBoard(){
-	return _board;
+		return _board;
     }
 
     private void swap( int x1, int y1, int x2, int y2 ) {
 	Tile temp = getBoard()[x1][y1];
-	_board[x1][y1] = getBoard()[x2][y2];
-	_board[x2][y2] = temp;			
+		_board[x1][y1] = getBoard()[x2][y2];
+		_board[x2][y2] = temp;			
     }
 
+	//Iterates through array. Swaps current Tile with one at point further down.
     private void shuffle(){
 	int len1 = _board.length;
 	int len2 = _board[0].length;
-	for (int i = 0; i < len1; i++){
-	    for (int x = 0; x < len2; x++){
-		swap (i,x, i + (int)(Math.random()*(len1-i)),  x + (int)(Math.random()*(len2-x)));
-	    }
-	}
+	for (int i = 0; i < len1; i++)
+	    for (int j = 0; j < len2; j++){
+			int rowAdd = (int)(Math.random()*(len1 - i));
+			int colNum = 0;
+			if (rowAdd == 0)
+				colNum = j + (int)(Math.random()*(len2-j));
+			else
+				colNum = (int)(Math.random()*len2);
+			swap (i, j, i + rowAdd,  colNum);
+		}
     }	
 
 
@@ -81,9 +85,6 @@ public class Concentration {
     //DO NOT MODIFY main()
     public static void main(String[] args){
 	Concentration test = new Concentration();
-	System.out.println(test.print(test._board));
-	test.shuffle();
-	System.out.println(test.print(test._board));
 				   
 	/*	Concentration game = new Concentration();
 		game.play(); */
